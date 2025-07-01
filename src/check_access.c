@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_access.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdakhlao <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fsingh <fsingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 19:18:43 by sdakhlao          #+#    #+#             */
-/*   Updated: 2025/06/25 19:18:44 by sdakhlao         ###   ########.fr       */
+/*   Updated: 2025/07/01 17:58:23 by fsingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,10 +102,8 @@ int	check_text_acc_ter(char *str)
 
 int	check_access(char *txtr_path)
 {
-	int		i;
 	char	*str;
 
-	i = 0;
 	str = dup_txtr_path(txtr_path);
 	if (!str)
 		return (0);

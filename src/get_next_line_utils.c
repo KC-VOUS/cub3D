@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdakhlao <sdakhlao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fsingh <fsingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 23:37:19 by sdakhlao          #+#    #+#             */
-/*   Updated: 2025/06/25 14:56:27 by sdakhlao         ###   ########.fr       */
+/*   Updated: 2025/07/01 18:14:17 by fsingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub.h"
 
-size_t	ft_strlen(char *s)
+size_t	ft_strlens(char *s)
 {
 	size_t	i;
 
@@ -24,7 +24,7 @@ size_t	ft_strlen(char *s)
 	return (i);
 }
 
-char	*ft_strchr(char *s, int c)
+char	*ft_strchrs(char *s, int c)
 {
 	int	i;
 
@@ -32,7 +32,7 @@ char	*ft_strchr(char *s, int c)
 	if (!s)
 		return (0);
 	if (c == '\0')
-		return ((char *)&s[ft_strlen(s)]);
+		return ((char *)&s[ft_strlens(s)]);
 	while (s[i] != '\0')
 	{
 		if (s[i] == (char) c)
@@ -42,7 +42,7 @@ char	*ft_strchr(char *s, int c)
 	return (0);
 }
 
-char	*ft_strjoin(char *left_str, char *buff)
+char	*ft_strjoins(char *left_str, char *buff)
 {
 	size_t	i;
 	size_t	j;
@@ -55,7 +55,7 @@ char	*ft_strjoin(char *left_str, char *buff)
 	}
 	if (!left_str || !buff)
 		return (NULL);
-	str = malloc(sizeof(char) * ((ft_strlen(left_str) + ft_strlen(buff)) + 1));
+	str = malloc(sizeof(char) * ((ft_strlens(left_str) + ft_strlens(buff)) + 1));
 	if (str == NULL)
 		return (NULL);
 	i = -1;
@@ -65,7 +65,7 @@ char	*ft_strjoin(char *left_str, char *buff)
 			str[i] = left_str[i];
 	while (buff[j] != '\0')
 		str[i++] = buff[j++];
-	str[ft_strlen(left_str) + ft_strlen(buff)] = '\0';
+	str[ft_strlens(left_str) + ft_strlens(buff)] = '\0';
 	free(left_str);
 	return (str);
 }
@@ -112,7 +112,7 @@ char	*ft_new_left_str(char *left_str)
 		free(left_str);
 		return (NULL);
 	}
-	str = (char *)malloc(sizeof(char) * (ft_strlen(left_str) - i + 1));
+	str = (char *)malloc(sizeof(char) * (ft_strlens(left_str) - i + 1));
 	if (!str)
 		return (NULL);
 	i++;
