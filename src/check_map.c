@@ -6,7 +6,7 @@
 /*   By: fsingh <fsingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 18:26:12 by sdakhlao          #+#    #+#             */
-/*   Updated: 2025/07/01 18:44:57 by fsingh           ###   ########.fr       */
+/*   Updated: 2025/07/14 11:42:14 by fsingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,26 @@ char	**dup_map(char **cub)
 	return (dup);
 }
 
+int		ft_flood_fill(char **map, int y, int x)
+{
+	if (x < 0 || map[y] == NULL || y < 0 || map[y][x] == '\0')
+		return (0);
+	if (map[y][x] == ' ')
+		return (0);
+	if (map[y][x] != '0')
+		return (1);
+	map[y][x] = 'X';
+	if (!ft_flood_fill(map, y + 1, x))
+		return (0);
+	if (!ft_flood_fill(map, y - 1, x))
+		return (0);
+	if (!ft_flood_fill(map, y, x + 1))
+		return (0);
+	if (!ft_flood_fill(map, y, x - 1))
+		return (0);
+	return (1);
+	}
+
 int		start_parse_map(char **cub, int y, int x)
 {
 	char	**map;
@@ -49,8 +69,9 @@ int		start_parse_map(char **cub, int y, int x)
 	map = dup_map(cub);
 	if (!map)
 		return (0);
-	/*res = ft_flood_fill(map, y, x);*/
+	res = ft_flood_fill(map, y, x);
 	free_tab(map);
+	printf("res = %d\n", res);
 	return (res);
 }
 
@@ -67,7 +88,6 @@ int		check_map(char **cub)
 		{
 			while (cub[i][j] != '0' && cub[i][j] != '\n')
 				j++;
-			printf("on est sur %c et en %d et %d\n", cub[i][j], i, j);
 			if (cub[i][j] == '0')
 				return (start_parse_map(cub, i, j));
 		}
