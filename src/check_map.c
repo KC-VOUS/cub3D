@@ -6,7 +6,7 @@
 /*   By: fsingh <fsingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 18:26:12 by sdakhlao          #+#    #+#             */
-/*   Updated: 2025/07/16 16:49:40 by fsingh           ###   ########.fr       */
+/*   Updated: 2025/07/16 18:00:17 by fsingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,17 @@ char	**dup_map(char **cub)
 	return (dup);
 }
 
-int		ft_flood_fill(char **map, int y, int x)
+int	ft_flood_fill(char **map, int y, int x)
 {
 	if (y < 0 || map[y] == NULL || x < 0 || map[y][x] == '\0')
-		return (0);
+		return (1);
 	if (map[y][x] == ' ' || map[y][x] == '\n')
 		return (0);
-	if (map[y][x] != '0')
+	if (map[y][x] == 'X' || map[y][x] == '1')
 		return (1);
+	if (map[y][x] != '0' && map[y][x] != 'N' && map[y][x] != 'S'
+		&& map[y][x] != 'E' && map[y][x] != 'O')
+		return (printf("Invalid caracter in map : '%c'\n", map[y][x]), 0);
 	map[y][x] = 'X';
 	if (!ft_flood_fill(map, y + 1, x))
 		return (0);
@@ -56,7 +59,7 @@ int		ft_flood_fill(char **map, int y, int x)
 	if (!ft_flood_fill(map, y, x - 1))
 		return (0);
 	return (1);
-	}
+}
 
 int	start_parse_map(char **cub, int y, int x)
 {
@@ -71,7 +74,6 @@ int	start_parse_map(char **cub, int y, int x)
 	free_tab(map);
 	return (res);
 }
-
 
 int	check_map(char **cub)
 {
@@ -90,7 +92,7 @@ int	check_map(char **cub)
 				|| cub[i][j] == 'O' || cub[i][j] == 'E')
 			{
 				if (!start_parse_map(cub, i, j))
-					return (free_tab(cub), 0);
+					return (printf("Map invalid\n"), free_tab(cub), 0);
 				else
 					return (1);
 			}
@@ -98,5 +100,5 @@ int	check_map(char **cub)
 		}
 		i++;
 	}
-	return (0);
+	return (printf("Map invalid\n"), 0);
 }

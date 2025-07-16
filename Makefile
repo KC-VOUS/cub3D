@@ -13,6 +13,7 @@ C_FILE		=	main.c					\
 				get_next_line.c			\
 				get_next_line_utils.c	\
 				check_map.c				\
+				check_map_content.c		\
 
 SRC_DIR		=	./src/
 

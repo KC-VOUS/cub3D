@@ -6,7 +6,7 @@
 /*   By: fsingh <fsingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 19:18:17 by sdakhlao          #+#    #+#             */
-/*   Updated: 2025/07/01 18:23:48 by fsingh           ###   ########.fr       */
+/*   Updated: 2025/07/16 17:03:53 by fsingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,6 @@ void	check_data(char **cub)
 	// 	exit(EXIT_FAILURE);
 	if (!check_map(cub))
 	 	exit(EXIT_FAILURE);
+	if (!check_map_content(cub))
+		exit(EXIT_FAILURE);
 }

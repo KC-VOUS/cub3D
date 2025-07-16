@@ -6,7 +6,7 @@
 /*   By: fsingh <fsingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 20:13:43 by sdakhlao          #+#    #+#             */
-/*   Updated: 2025/07/01 18:13:19 by fsingh           ###   ########.fr       */
+/*   Updated: 2025/07/16 17:02:37 by fsingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ char	*ft_new_left_str(char *left_str);
 char	*ft_strjoins(char *left_str, char *buff);
 char	*ft_read_to_left_str(int fd, char *left_str);
 int		check_map(char **cub);
+int		check_map_content(char **cub);
 
 size_t	ft_strlens(char *s);
 
