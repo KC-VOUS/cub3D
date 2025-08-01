@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdakhlao <sdakhlao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fsingh <fsingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 18:25:30 by sdakhlao          #+#    #+#             */
-/*   Updated: 2025/06/25 18:27:05 by sdakhlao         ###   ########.fr       */
+/*   Updated: 2025/07/28 16:55:00 by fsingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	**malloc_tab(char *file)
 	return (tab);
 }
 
-void	cp_file(char	*file)
+void	cp_file(char	*file, t_details *details)
 {
 	int		i;
 	int		fd;
@@ -79,6 +79,8 @@ void	cp_file(char	*file)
 	tab[i] = NULL;
 	close(fd);
 	check_data(tab);
+	init_struct(details);
+	fill_details(details, tab);
 	print_tab(tab);
 	free_tab(tab);
 }

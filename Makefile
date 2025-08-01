@@ -7,6 +7,7 @@ FLAG		=	-Wall -Werror -Wextra -g3
 C_FILE		=	main.c					\
 				utils.c					\
 				parsing.c				\
+				fill_details.c			\
 				check_file.c			\
 				check_access.c			\
 				check_texture.c			\
