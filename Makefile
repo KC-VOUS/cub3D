@@ -9,6 +9,8 @@ C_FILE		=	main.c					\
 				parsing.c				\
 				fill_details.c			\
 				check_file.c			\
+				check_map.c				\
+				check_map_content.c		\
 				check_access.c			\
 				check_texture.c			\
 				get_next_line.c			\

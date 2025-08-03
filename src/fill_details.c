@@ -6,7 +6,7 @@
 /*   By: fsingh <fsingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 14:40:08 by fsingh            #+#    #+#             */
-/*   Updated: 2025/08/01 13:08:02 by fsingh           ###   ########.fr       */
+/*   Updated: 2025/08/03 21:08:46 by fsingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	map_size(t_details *details, char **tab)
 	details->map.height = i;
 }
 
-void	fill_map(t_details *details, char **tab)
+void	fill_map_details(t_details *details, char **tab)
 {
 	int		i;
 	int		j;
@@ -166,7 +166,6 @@ void	free_details(t_details *details)
 		free(details->west);
 	if (details->east)
 		free(details->east);
-
 	if (details->map.map)
 	{
 		while (details->map.map[i])
@@ -228,7 +227,7 @@ void	fill_details(t_details *details, char **tab)
 {
 	fill_texture(details, tab);
 	fill_color(details, tab);
-	fill_map(details, tab);
+	fill_map_details(details, tab);
 	fill_player(details, details->map.map);
 	print_details(details);
 	free_details(details);
