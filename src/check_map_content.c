@@ -6,7 +6,7 @@
 /*   By: fsingh <fsingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:01:41 by fsingh            #+#    #+#             */
-/*   Updated: 2025/08/16 13:25:16 by fsingh           ###   ########.fr       */
+/*   Updated: 2025/08/16 13:31:47 by fsingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,10 @@ int	check_invalid_content(char *cub_line)
 		if (cub_line[i] != 'N' && cub_line[i] != 'S'
 			&& cub_line[i] != 'O' && cub_line[i] != 'E' && cub_line[i] != '1'
 			&& cub_line[i] != '0' && cub_line[i] != ' ' && cub_line[i] != '\n')
+		{
+			printf("Invalid character in map\n");
 			return(0);
+		}
 		i++;
 	}
 	return (1);
