@@ -6,7 +6,7 @@
 /*   By: fsingh <fsingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 20:13:51 by sdakhlao          #+#    #+#             */
-/*   Updated: 2025/08/03 22:00:41 by fsingh           ###   ########.fr       */
+/*   Updated: 2025/08/15 18:24:22 by fsingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,10 +116,10 @@ void get_rays(t_mlx *data, int x, int w)
 {
 	int		h = data->map.screen_h;
 	double cameraX = 2 * x / (double)w - 1;
-	double rayDirX = data->player.dir_x + data->player.plane_x * cameraX;
-	double rayDirY = data->player.dir_y + data->player.plane_y * cameraX;
-	int mapX = (int)data->player.pos_x;
-	int mapY = (int)data->player.pos_y;
+	double rayDirX = data->player.dir_x + data->player.plane_y * cameraX;
+	double rayDirY = data->player.dir_y + data->player.plane_x * cameraX;
+	int mapX = (int)data->player.pos_y;
+	int mapY = (int)data->player.pos_x;
 	double sideDistX;
 	double sideDistY;
 
@@ -147,22 +147,22 @@ void get_rays(t_mlx *data, int x, int w)
 	if (rayDirX < 0)
 	{
 		stepX = -1;
-		sideDistX = (data->player.pos_x - mapX) * deltaDistX;
+		sideDistX = (data->player.pos_y - mapX) * deltaDistX;
 	}
 	else
 	{
 		stepX = 1;
-		sideDistX = (mapX + 1.0 - data->player.pos_x) * deltaDistX;
+		sideDistX = (mapX + 1.0 - data->player.pos_y) * deltaDistX;
 	}
 	if (rayDirY < 0)
 	{
 		stepY = -1;
-		sideDistY = (data->player.pos_y - mapY) * deltaDistY;
+		sideDistY = (data->player.pos_x - mapY) * deltaDistY;
 	}
 	else
 	{
 		stepY = 1;
-		sideDistY = (mapY + 1.0 - data->player.pos_y) * deltaDistY;
+		sideDistY = (mapY + 1.0 - data->player.pos_x) * deltaDistY;
 	}
 	while(hit == 0)
 	{
@@ -178,7 +178,7 @@ void get_rays(t_mlx *data, int x, int w)
 			mapY += stepY;
 			side = 1;
 		}
-		if (data->map.map[mapX][mapY] > 0)
+		if (data->map.map[mapX][mapY] == '1')
 			hit = 1;
 	}
 	if (side == 0)
@@ -260,8 +260,8 @@ void	*check_texture_path(char *path, void *mlx)
 	int		h;
 	void	*img;
 
-	w = 64;
-	h = 64;
+	w = 32;
+	h = 32;
 	if (!has_xpm(path))
 		return (NULL);
 	img = mlx_xpm_file_to_image(mlx, path, &w, &h);
@@ -280,23 +280,18 @@ int	check_all_textures(void *mlx, t_mlx *data)
 	return (1);
 }
 
-int		**char_to_int(char **map)
-{
-	
-}
-
 int		init_image(t_mlx *data, t_details *details)
 {
-	data->image.north_path = strdup(details->north);
+	data->image.north_path = ft_strdup(details->north);
 	if (!data->image.north_path)
 		return (0);
-	data->image.south_path = strdup(details->south);
+	data->image.south_path = ft_strdup(details->south);
 	if (!data->image.south_path)
 		return (0);
-	data->image.east_path = strdup(details->east);
+	data->image.east_path = ft_strdup(details->east);
 	if (!data->image.east_path)
 		return (0);
-	data->image.west_path = strdup(details->west);
+	data->image.west_path = ft_strdup(details->west);
 	if (!data->image.west_path)
 		return (0);
 	return (1);
@@ -304,7 +299,8 @@ int		init_image(t_mlx *data, t_details *details)
 
 int		init_map(t_mlx *data, t_details *details)
 {
-	data->map.map = char_to_int(details->map.map);
+	data->map.map = NULL;
+	data->map.map = dup_map(details->map.map);
 	if (!data->map.map)
 		return (0);
 	data->map.floor_r = details->floor_r;
@@ -322,6 +318,14 @@ int		init_map(t_mlx *data, t_details *details)
 	return (1);
 }
 
+void	fill_plane(t_mlx *data, t_details *details)
+{
+	double	fov_factor = 0.66;
+
+	data->player.plane_x = -details->dir_y * fov_factor;
+	data->player.plane_y = details->dir_x * fov_factor;
+}
+
 int		init_data(t_mlx *data, t_details *details)
 {
 	if (!init_image(data, details))
@@ -332,8 +336,7 @@ int		init_data(t_mlx *data, t_details *details)
 	data->player.pos_y = details->player_pos_y;
 	data->player.dir_x = details->dir_x;
 	data->player.dir_y = details->dir_y;
-	data->player.plane_x = 0;
-	data->player.plane_y = 0.66;
+	fill_plane(data, details);
 	data->player.time = 0;
 	data->player.up = 0;
 	data->player.down = 0;

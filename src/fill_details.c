@@ -6,7 +6,7 @@
 /*   By: fsingh <fsingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 14:40:08 by fsingh            #+#    #+#             */
-/*   Updated: 2025/08/03 21:08:46 by fsingh           ###   ########.fr       */
+/*   Updated: 2025/08/15 17:42:14 by fsingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,21 @@ void	fill_color(t_details *details, char **tab)
 	}
 }
 
+int		width_detector(char *tab)
+{
+	int		start;
+	int		end;
+
+	end = 0;
+	start = 0;
+	while (tab[start] == ' ')
+		start++;
+	end = (ft_strlen(tab) - 1);
+	while (end > start && tab[end] == ' ')
+		end--;
+	return (end - start + 1);
+}
+
 void	map_size(t_details *details, char **tab)
 {
 	int	i;
@@ -75,7 +90,7 @@ void	map_size(t_details *details, char **tab)
 	max = 0;
 	while (tab[i])
 	{
-		j = ft_strlen(tab[i]);
+		j = width_detector(tab[i]);
 		if (j > max)
 			max = j;
 		i++;
@@ -107,8 +122,14 @@ void	fill_map_details(t_details *details, char **tab)
 				while (tab[i])
 				{
 					j = 0;
-					while (tab[i][j] && tab[i][j] != '1')
+					while (tab[i][j])
+					{
+						if (tab[i][j] == '1')
+							break;
 						j++;
+					}
+					if (tab[i][j] == '1')
+						break;
 					i++;
 				}
 				start_map = i;
@@ -123,9 +144,19 @@ void	fill_map_details(t_details *details, char **tab)
 	i = 0;
 	while (i < map_lines)
 	{
-		clean = ft_strtrim(tab[start_map + i], "\n");
-		details->map.map[i] = ft_strdup(clean);
-		free(clean);
+		if (tab[start_map + i])
+		{
+			clean = ft_strtrim(tab[start_map + i], "\n");
+			if (!clean)
+				details->map.map[i] = ft_strdup("");
+			else
+			{
+				details->map.map[i] = ft_strdup(clean);
+				free(clean);
+			}
+		}
+		else
+			details->map.map[i] = ft_strdup("");
 		i++;
 	}
 	details->map.map[i] = NULL;
@@ -147,7 +178,7 @@ void	print_details(t_details *details)
 	printf("Map(%d x %d):\n", details->map.height, details->map.width);
 	while (details->map.map && details->map.map[i])
 	{
-		printf("%s", details->map.map[i]);
+		printf("'%s'", details->map.map[i]);
 		printf("\n");
 		i++;
 	}
@@ -230,5 +261,5 @@ void	fill_details(t_details *details, char **tab)
 	fill_map_details(details, tab);
 	fill_player(details, details->map.map);
 	print_details(details);
-	free_details(details);
+	//free_details(details);
 }

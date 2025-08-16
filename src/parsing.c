@@ -6,7 +6,7 @@
 /*   By: fsingh <fsingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 18:25:30 by sdakhlao          #+#    #+#             */
-/*   Updated: 2025/08/03 19:58:16 by fsingh           ###   ########.fr       */
+/*   Updated: 2025/08/06 13:47:47 by fsingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,5 @@ void	cp_file(char	*file, t_details *details)
 	check_data(tab);
 	init_struct(details);
 	fill_details(details, tab);
-	print_tab(tab);
 	free_tab(tab);
 }
-
-
-//valid_extension xpm et mlxopen verif

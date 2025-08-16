@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoukoun <ssoukoun@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fsingh <fsingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 22:25:02 by ssoukoun          #+#    #+#             */
-/*   Updated: 2025/01/08 12:46:11 by ssoukoun         ###   ########.fr       */
+/*   Updated: 2025/08/14 12:46:36 by fsingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	*ft_memset(void *s, int c, size_t n);
 char	*ft_strchr(const char *str, int c);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_strlen(const char *str);
-char	*ft_strdup(const char *s);
+char	*ft_strdup(char *s);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 char	*ft_strrchr(const char *str, int c);
 char	*ft_strstr(char *str, char *to_find);
