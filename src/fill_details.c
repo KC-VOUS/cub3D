@@ -6,7 +6,7 @@
 /*   By: fsingh <fsingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 14:40:08 by fsingh            #+#    #+#             */
-/*   Updated: 2025/08/15 17:42:14 by fsingh           ###   ########.fr       */
+/*   Updated: 2025/08/16 13:22:18 by fsingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,18 +99,15 @@ void	map_size(t_details *details, char **tab)
 	details->map.height = i;
 }
 
-void	fill_map_details(t_details *details, char **tab)
+int		first_line_detector(char **tab)
 {
-	int		i;
-	int		j;
-	int		start_map;
-	int		map_lines;
-	char	*clean;
-
+	int	i;
+	int	start_map;
+	int	j;
+	
 	i = 0;
 	j = 0;
 	start_map = 0;
-	map_lines = 0;
 	while (tab[i])
 	{
 		if (tab[i][0] == ' ' || tab[i][0] == '1')
@@ -138,6 +135,19 @@ void	fill_map_details(t_details *details, char **tab)
 		}
 		i++;
 	}
+	return (start_map);
+}
+
+void	fill_map_details(t_details *details, char **tab)
+{
+	int		i;
+	int		start_map;
+	int		map_lines;
+	char	*clean;
+
+	i = 0;
+	map_lines = 0;
+	start_map = first_line_detector(tab);
 	while (tab[start_map + map_lines])
 		map_lines++;
 	details->map.map = malloc(sizeof(char *) * (map_lines + 1));

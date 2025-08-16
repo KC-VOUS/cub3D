@@ -6,7 +6,7 @@
 /*   By: fsingh <fsingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 20:13:43 by sdakhlao          #+#    #+#             */
-/*   Updated: 2025/08/06 13:10:28 by fsingh           ###   ########.fr       */
+/*   Updated: 2025/08/16 13:20:22 by fsingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,5 +141,6 @@ void	init_struct(t_details *details);
 void	free_details(t_details *details);
 size_t	ft_strlens(char *s);
 void	free_all(t_mlx *data);
+int		first_line_detector(char **tab);
 
 #endif

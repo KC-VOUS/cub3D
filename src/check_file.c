@@ -6,7 +6,7 @@
 /*   By: fsingh <fsingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 19:18:17 by sdakhlao          #+#    #+#             */
-/*   Updated: 2025/08/14 12:37:30 by fsingh           ###   ########.fr       */
+/*   Updated: 2025/08/16 13:13:19 by fsingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,11 @@ int	check_color(char **cub)
 			if (cub[i][j] < '0' || cub[i][j] > '9')
 				return (free_tab(cub), 0);
 			k = j;
-			while (cub[i][k] > '0' || cub[i][k] < '9')
+			while (cub[i][k] >= '0' && cub[i][k] <= '9')
 				k++;
 			if (k - j > 3)
 				return (free_tab(cub), 0);
-			str = malloc(sizeof(char) * (k - j) + 1);
+			str = malloc(sizeof(char) * ((k - j) + 1));
 			while (j < k)
 			{
 				str[l] = cub[i][j];

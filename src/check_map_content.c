@@ -6,7 +6,7 @@
 /*   By: fsingh <fsingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:01:41 by fsingh            #+#    #+#             */
-/*   Updated: 2025/07/16 17:54:54 by fsingh           ###   ########.fr       */
+/*   Updated: 2025/08/16 13:25:16 by fsingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,34 @@ int	checking_content(char *cub_line, int *player_count)
 	return (1);
 }
 
+int	check_invalid_content(char *cub_line)
+{
+	int	i;
+
+	i = 0;
+	while (cub_line[i])
+	{
+		if (cub_line[i] != 'N' && cub_line[i] != 'S'
+			&& cub_line[i] != 'O' && cub_line[i] != 'E' && cub_line[i] != '1'
+			&& cub_line[i] != '0' && cub_line[i] != ' ' && cub_line[i] != '\n')
+			return(0);
+		i++;
+	}
+	return (1);
+}
+
 int	check_map_content(char **cub)
 {
 	int	i;
 	int	player_count;
 
 	player_count = 0;
-	i = 0;
-	while (cub[i] && cub[i][0] != ' ' && cub[i][0] != '1')
-		i++;
+	i = first_line_detector(cub);
 	while (cub[i])
 	{
-		if (!checking_content(cub[i], &player_count))
+		if (!check_invalid_content(cub[i]))
 			return (0);
+		checking_content(cub[i], &player_count);
 		i++;
 	}
 	if (player_count != 1)
