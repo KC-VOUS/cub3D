@@ -6,7 +6,7 @@
 /*   By: fsingh <fsingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 20:13:51 by sdakhlao          #+#    #+#             */
-/*   Updated: 2025/08/15 18:24:22 by fsingh           ###   ########.fr       */
+/*   Updated: 2025/08/16 13:53:55 by fsingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,10 +116,10 @@ void get_rays(t_mlx *data, int x, int w)
 {
 	int		h = data->map.screen_h;
 	double cameraX = 2 * x / (double)w - 1;
-	double rayDirX = data->player.dir_x + data->player.plane_y * cameraX;
-	double rayDirY = data->player.dir_y + data->player.plane_x * cameraX;
-	int mapX = (int)data->player.pos_y;
-	int mapY = (int)data->player.pos_x;
+	double rayDirX = data->player.dir_x + data->player.plane_x * cameraX;
+	double rayDirY = data->player.dir_y + data->player.plane_y * cameraX;
+	int mapX = (int)data->player.pos_x;
+	int mapY = (int)data->player.pos_y;
 	double sideDistX;
 	double sideDistY;
 
@@ -147,22 +147,22 @@ void get_rays(t_mlx *data, int x, int w)
 	if (rayDirX < 0)
 	{
 		stepX = -1;
-		sideDistX = (data->player.pos_y - mapX) * deltaDistX;
+		sideDistX = (data->player.pos_x - mapX) * deltaDistX;
 	}
 	else
 	{
 		stepX = 1;
-		sideDistX = (mapX + 1.0 - data->player.pos_y) * deltaDistX;
+		sideDistX = (mapX + 1.0 - data->player.pos_x) * deltaDistX;
 	}
 	if (rayDirY < 0)
 	{
 		stepY = -1;
-		sideDistY = (data->player.pos_x - mapY) * deltaDistY;
+		sideDistY = (data->player.pos_y - mapY) * deltaDistY;
 	}
 	else
 	{
 		stepY = 1;
-		sideDistY = (mapY + 1.0 - data->player.pos_x) * deltaDistY;
+		sideDistY = (mapY + 1.0 - data->player.pos_y) * deltaDistY;
 	}
 	while(hit == 0)
 	{

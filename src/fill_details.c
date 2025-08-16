@@ -6,7 +6,7 @@
 /*   By: fsingh <fsingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 14:40:08 by fsingh            #+#    #+#             */
-/*   Updated: 2025/08/16 13:22:18 by fsingh           ###   ########.fr       */
+/*   Updated: 2025/08/16 13:47:55 by fsingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,23 +219,23 @@ void	fill_dir(t_details *details, char dir)
 {
 	if (dir == 'N')
 	{
-		details->dir_x = 0;
-		details->dir_y = -1;
+		details->dir_y = 0;
+		details->dir_x = -1;
 	}
 	else if (dir == 'S')
 	{
-		details->dir_x = 0;
-		details->dir_y = 1;
+		details->dir_y = 0;
+		details->dir_x = 1;
 	}
 	else if (dir == 'E')
 	{
-		details->dir_x = 1;
-		details->dir_y = 0;
+		details->dir_y = 1;
+		details->dir_x = 0;
 	}
 	else if (dir == 'W')
 	{
-		details->dir_x = -1;
-		details->dir_y = 0;
+		details->dir_y = -1;
+		details->dir_x = 0;
 	}
 }
 
@@ -253,8 +253,8 @@ void	fill_player(t_details *details, char **tab)
 			if (tab[i][j] == 'N' || tab[i][j] == 'E' 
 				|| tab[i][j] == 'S' || tab[i][j] == 'W')
 			{
-				details->player_pos_y = i + 0.5;
-				details->player_pos_x = j + 0.5;
+				details->player_pos_x = i + 0.5;
+				details->player_pos_y = j + 0.5;
 				fill_dir(details, tab[i][j]);
 				return ;
 			}
