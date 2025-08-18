@@ -5,15 +5,18 @@ CC			=	cc
 FLAG		=	-Wall -Werror -Wextra -g3
 
 C_FILE		=	main.c					\
+				init.c					\
 				utils.c					\
 				parsing.c				\
+				fill_map.c				\
 				free_all.c				\
 				mlx_utils.c				\
 				check_map.c				\
-				check_file.c			\
 				raycasting.c			\
+				check_file.c			\
 				check_color.c			\
 				fill_struct.c			\
+				fill_player.c			\
 				check_access.c			\
 				check_texture.c			\
 				get_next_line.c			\

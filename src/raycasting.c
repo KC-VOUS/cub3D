@@ -42,12 +42,16 @@ void	vertical_line(t_mlx *data, int x, int drawStart, int drawEnd, int color)
 
 void get_rays(t_mlx *data, int x, int w)
 {
+	// data->player.dir_x = -1.0;
+	// data->player.dir_y = 0.0;
+	// data->player.plane_x = 0.0;
+	// data->player.plane_y = 0.66;
 	int		h = data->map.screen_h;
 	double cameraX = 2 * x / (double)w - 1;
-	double rayDirX = data->player.dir_x + data->player.plane_x * cameraX;
-	double rayDirY = data->player.dir_y + data->player.plane_y * cameraX;
-	int mapX = (int)data->player.pos_x;
-	int mapY = (int)data->player.pos_y;
+	double rayDirX = data->player.dir_x + data->player.plane_x * cameraX;//
+	double rayDirY = data->player.dir_y + data->player.plane_y * cameraX;//
+	int mapX = (int)data->player.pos_x;//
+	int mapY = (int)data->player.pos_y;//
 	double sideDistX;
 	double sideDistY;
 
@@ -75,22 +79,22 @@ void get_rays(t_mlx *data, int x, int w)
 	if (rayDirX < 0)
 	{
 		stepX = -1;
-		sideDistX = (data->player.pos_x - mapX) * deltaDistX;
+		sideDistX = (data->player.pos_x - mapX) * deltaDistX;//
 	}
 	else
 	{
 		stepX = 1;
-		sideDistX = (mapX + 1.0 - data->player.pos_x) * deltaDistX;
+		sideDistX = (mapX + 1.0 - data->player.pos_x) * deltaDistX;//
 	}
 	if (rayDirY < 0)
 	{
 		stepY = -1;
-		sideDistY = (data->player.pos_y - mapY) * deltaDistY;
+		sideDistY = (data->player.pos_y - mapY) * deltaDistY;//
 	}
 	else
 	{
 		stepY = 1;
-		sideDistY = (mapY + 1.0 - data->player.pos_y) * deltaDistY;
+		sideDistY = (mapY + 1.0 - data->player.pos_y) * deltaDistY;//
 	}
 	while(hit == 0)
 	{
@@ -106,7 +110,7 @@ void get_rays(t_mlx *data, int x, int w)
 			mapY += stepY;
 			side = 1;
 		}
-		if (data->map.map[mapX][mapY] == '1')
+		if (data->map.map[mapX][mapY] == '1')//
 			hit = 1;
 	}
 	if (side == 0)
@@ -123,7 +127,7 @@ void get_rays(t_mlx *data, int x, int w)
 
 	int color = 0;
 
-	if (data->map.map[mapX][mapY] == 1)
+	if (data->map.map[mapX][mapY] == '1')
 		color = rgb(255, 0, 0);
 	else if (data->map.map[mapX][mapY] == 2)
 		color = rgb(0, 255, 0);
@@ -142,8 +146,8 @@ void get_rays(t_mlx *data, int x, int w)
 
 void	handle_movement(t_mlx *data)
 {
-	double movespeed = 1;
-	double rotspeed = 0.25;
+	double movespeed = 0.08;
+	double rotspeed = 0.025;
 	if (data->player.up == 1)
 	{
 		if (data->map.map[(int)(data->player.pos_x + data->player.dir_x * movespeed)][(int)(data->player.pos_y)] != '1')

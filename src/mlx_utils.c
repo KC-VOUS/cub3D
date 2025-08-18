@@ -6,7 +6,7 @@
 /*   By: sdakhlao <sdakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 23:41:49 by sdakhlao          #+#    #+#             */
-/*   Updated: 2025/08/06 15:24:29 by sdakhlao         ###   ########.fr       */
+/*   Updated: 2025/08/18 22:10:32 by sdakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	quit(t_mlx *data)
 	mlx_destroy_display(data->mlx);
 	free(data->mlx);
 	free_tab(data->map.map);
-	free_all(data);
+	free_image_paths(&data->image);
 	exit(EXIT_FAILURE);
 }
 
@@ -60,27 +60,6 @@ int	key_hook(int key_code, t_mlx *data)
 	return (0);
 }
 
-// void	init_mlx(char **tab)
-// {
-// 	t_mlx	data;
-// 	t_details details;
-
-// 	details = fill_details(tab);
-// 	data.x = 13;
-// 	data.y = 12;
-// 	if (init_data(&data, &details) == -1)
-// 		return ;
-// 	data.mlx = mlx_init();
-// 	data.win = mlx_new_window(data.mlx, 640, 480, "cub3D");
-// 	data.img = mlx_new_image(data.mlx, 640, 480);
-// 	data.addr = mlx_get_data_addr(data.img, &data.bpp,
-// 			&data.size_line, &data.endian);
-// 	mlx_hook(data.win, KeyPress, KeyPressMask, &key_hook, &data);
-// 	mlx_hook(data.win, 17, 0, &quit, &data);
-// 	mlx_loop_hook(data.mlx, raycasting, &data);
-// 	mlx_loop(data.mlx);
-// }
-
 void	init_mlx(t_details *details)
 {
 	t_mlx	data;
@@ -88,19 +67,19 @@ void	init_mlx(t_details *details)
 	if (!init_data(&data, details))
 	{
 		free_details(details);
-		return;
+		return ;
 	}
 	free_details(details);
 	data.mlx = mlx_init();
-	// if (!check_all_textures(data.mlx, &data))
-	// {
-	// 	write(2, "Error: Invalid texture file(s)\n", 31);
-	// 	free_all(&data);
-	// }
-	// data.map = details->map;
+	if (!check_all_textures(data.mlx, &data))
+	{
+		write(2, "Error: Invalid texture file(s)\n", 31);
+		free_all(&data);
+	}
 	data.win = mlx_new_window(data.mlx, 640, 480, "cub3D");
 	data.img = mlx_new_image(data.mlx, 640, 480);
-	data.addr = mlx_get_data_addr(data.img, &data.bpp, &data.size_line, &data.endian);
+	data.addr = mlx_get_data_addr(data.img, &data.bpp,
+			&data.size_line, &data.endian);
 	mlx_hook(data.win, KeyPress, KeyPressMask, &key_hook, &data);
 	mlx_hook(data.win, 17, 0, &quit, &data);
 	mlx_loop_hook(data.mlx, raycasting, &data);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free_all.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sdakhlao <sdakhlao@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/18 20:47:16 by sdakhlao          #+#    #+#             */
+/*   Updated: 2025/08/18 21:01:41 by sdakhlao         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/cub.h"
 
 void	free_map(char **map)
@@ -41,17 +53,12 @@ void	free_textures(t_mlx *data)
 
 void	free_all(t_mlx *data)
 {
-	// free_textures(data);
 	free_image_paths(&data->image);
-	// free_map(data->map.map);//
-	// if (data->img)
-	// 	mlx_destroy_image(data->mlx, data->img);
-	// if (data->win)
-	// 	mlx_destroy_window(data->mlx, data->win);
-	// if (data->mlx)
-	// {
-	// 	mlx_destroy_display(data->mlx);
-	// 	free(data->mlx);
-	// }
-	// exit(EXIT_FAILURE);
+	free_map(data->map.map);
+	if (data->mlx)
+	{
+		mlx_destroy_display(data->mlx);
+		free(data->mlx);
+	}
+	exit(EXIT_FAILURE);
 }

@@ -6,7 +6,7 @@
 /*   By: sdakhlao <sdakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 18:26:12 by sdakhlao          #+#    #+#             */
-/*   Updated: 2025/08/03 23:18:11 by sdakhlao         ###   ########.fr       */
+/*   Updated: 2025/08/18 20:40:55 by sdakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,25 +40,15 @@ char	**dup_map(char **cub)
 
 int	ft_flood_fill(char **map, int y, int x)
 {
-	if (y < 0 || map[y] == NULL || x < 0 || map[y][x] == '\0')
+	if (y < 0 || x < 0 || !map[y] || (map[y] && !map[y][x]) || map[y][x] == ' ')
 		return (1);
-	if (map[y][x] == ' ' || map[y][x] == '\n')
+	else if (map[y][x] == '1')
 		return (0);
-	if (map[y][x] == 'X' || map[y][x] == '1')
-		return (1);
-	if (map[y][x] != '0' && map[y][x] != 'N' && map[y][x] != 'S'
-		&& map[y][x] != 'E' && map[y][x] != 'O')
-		return (printf("Invalid caracter in map : '%c'\n", map[y][x]), 0);
-	map[y][x] = 'X';
-	if (!ft_flood_fill(map, y + 1, x))
-		return (0);
-	if (!ft_flood_fill(map, y - 1, x))
-		return (0);
-	if (!ft_flood_fill(map, y, x + 1))
-		return (0);
-	if (!ft_flood_fill(map, y, x - 1))
-		return (0);
-	return (1);
+	map[y][x] = '1';
+	return (ft_flood_fill(map, y - 1, x)
+		|| ft_flood_fill(map, y + 1, x)
+		|| ft_flood_fill(map, y, x - 1)
+		|| ft_flood_fill(map, y, x + 1));
 }
 
 int	start_parse_map(char **cub, int y, int x)
@@ -80,9 +70,7 @@ int	check_map(char **cub)
 	int	i;
 	int	j;
 
-	i = 0;
-	while (cub[i] && cub[i][0] != ' ' && cub[i][0] != '1')
-		i++;
+	i = first_line_detector(cub);
 	while (cub[i])
 	{
 		j = 0;
@@ -91,7 +79,7 @@ int	check_map(char **cub)
 			if (cub[i][j] == 'N' || cub[i][j] == 'S'
 				|| cub[i][j] == 'O' || cub[i][j] == 'E')
 			{
-				if (!start_parse_map(cub, i, j))
+				if (start_parse_map(cub, i, j) != 0)
 					return (printf("Map invalid\n"), free_tab(cub), 0);
 				else
 					return (1);
