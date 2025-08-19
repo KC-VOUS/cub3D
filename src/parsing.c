@@ -6,7 +6,7 @@
 /*   By: fsingh <fsingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 18:25:30 by sdakhlao          #+#    #+#             */
-/*   Updated: 2025/08/06 13:47:47 by fsingh           ###   ########.fr       */
+/*   Updated: 2025/08/19 16:26:28 by fsingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	valid_extension(char *file)
 		i++;
 	if (i < 5 || strcmp(file + i - 4, ".cub"))
 	{
-		write(2, "Error: Wrong file extension\n", 29);
+		write(2, "Error: Wrong file name\n", 24);
 		exit(EXIT_FAILURE);
 	}
 }
@@ -54,7 +54,7 @@ char	**malloc_tab(char *file)
 	return (tab);
 }
 
-void	cp_file(char	*file, t_details *details)
+void	check_validity(char	*file, t_details *details)
 {
 	int		i;
 	int		fd;
@@ -81,5 +81,4 @@ void	cp_file(char	*file, t_details *details)
 	check_data(tab);
 	init_struct(details);
 	fill_details(details, tab);
-	free_tab(tab);
 }

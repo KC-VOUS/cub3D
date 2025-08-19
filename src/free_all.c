@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsingh <fsingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/06 13:08:31 by fsingh            #+#    #+#             */
-/*   Updated: 2025/08/06 13:09:37 by fsingh           ###   ########.fr       */
+/*   Created: 2025/08/18 20:47:16 by sdakhlao          #+#    #+#             */
+/*   Updated: 2025/08/19 16:32:51 by fsingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,10 @@ void	free_textures(t_mlx *data)
 		mlx_destroy_image(data->mlx, data->image.west);
 }
 
-void	free_all(t_mlx *data)
+void	free_it(t_mlx *data)
 {
-	free_textures(data);
 	free_image_paths(&data->image);
 	free_map(data->map.map);
-	if (data->img)
-		mlx_destroy_image(data->mlx, data->img);
-	if (data->win)
-		mlx_destroy_window(data->mlx, data->win);
 	if (data->mlx)
 	{
 		mlx_destroy_display(data->mlx);

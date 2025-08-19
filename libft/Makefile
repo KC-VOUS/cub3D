@@ -3,20 +3,20 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ssoukoun <ssoukoun@student.42.fr>          +#+  +:+       +#+         #
+#    By: sdakhlao <sdakhlao@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/27 14:24:16 by ssoukoun          #+#    #+#              #
-#    Updated: 2024/09/20 17:41:14 by ssoukoun         ###   ########.fr        #
+#    Updated: 2025/08/03 20:26:28 by sdakhlao         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 NAME = libft.a
 HEAD = .
-CC = cc 
+CC = cc
 CFLAGS = -Wall -Werror -Wextra
 AR = ar
-ARFLAGS = rcs 
+ARFLAGS = rcs
 SOURCES = ft_bzero.c ft_calloc.c ft_isalnum.c \
 		ft_isalpha.c ft_isdigit.c \
 		 ft_memcpy.c ft_memmove.c ft_memset.c ft_strchr.c ft_strlcat.c \
@@ -24,8 +24,8 @@ SOURCES = ft_bzero.c ft_calloc.c ft_isalnum.c \
 		ft_toupper.c ft_memchr.c ft_memcmp.c ft_strdup.c ft_substr.c ft_strjoin.c \
 		ft_strtrim.c ft_itoa.c ft_strmapi.c ft_striteri.c ft_putchar_fd.c ft_split.c\
 		ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_atoi.c ft_isprint.c ft_isascii.c\
-		
-                    
+
+
 OBJECTS = $(SOURCES:.c=.o)
 
 
@@ -36,7 +36,7 @@ $(NAME): $(OBJECTS)
 	ranlib $(NAME)
 $(OBJECTS): $(SOURCES)
 
-%.o: %.c 
+%.o: %.c
 	$(CC) $(CFLAGS)  -c $< -o $@ -I $(HEAD)
 
 clean	:

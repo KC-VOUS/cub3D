@@ -5,15 +5,21 @@ CC			=	cc
 FLAG		=	-Wall -Werror -Wextra -g3
 
 C_FILE		=	main.c					\
+				init.c					\
 				utils.c					\
 				parsing.c				\
-				fill_details.c			\
-				check_file.c			\
+				fill_map.c				\
+				mlx_utils.c				\
 				check_map.c				\
-				check_map_content.c		\
+				raycasting.c			\
+				check_file.c			\
+				check_color.c			\
+				fill_struct.c			\
+				fill_player.c			\
 				check_access.c			\
 				check_texture.c			\
 				get_next_line.c			\
+				check_map_content.c		\
 				get_next_line_utils.c	\
 				free_all.c				\
 
@@ -48,7 +54,7 @@ $(MLX_LIB):
 
 $(NAME): $(OBJS)
 	@echo "\033[0;33m\nCOMPILING CUB...\n"
-	@$(CC) $(FLAG) $(OBJS) $(LIBFT) $(MLX_EX) -I./includes -I$(LIBFT_DIR) -I$(MLX_PATH) -o $(NAME)
+	@$(CC) $(FLAG) $(OBJS) $(LIBFT) $(MLX_EX) -I./includes -I$(LIBFT_DIR) -I$(MLX_PATH) -o $(NAME) -lm
 	@echo "\033[1;32m./cub3D created\n"
 
 clean:

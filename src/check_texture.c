@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_texture.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdakhlao <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sdakhlao <sdakhlao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 19:18:28 by sdakhlao          #+#    #+#             */
-/*   Updated: 2025/06/25 19:18:30 by sdakhlao         ###   ########.fr       */
+/*   Updated: 2025/08/03 22:54:06 by sdakhlao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	check_no(char *line, int *count)
 {
-	if (!strncmp(line, "NO", 2) || !strncmp(line, "N", 1))
+	if (!strncmp(line, "NO", 2))
 	{
 		if (!check_access(line))
 			return (0);
@@ -25,7 +25,7 @@ int	check_no(char *line, int *count)
 
 int	check_so(char *line, int *count)
 {
-	if (!strncmp(line, "SO", 2) || !strncmp(line, "S", 1))
+	if (!strncmp(line, "SO", 2))
 	{
 		if (!check_access(line))
 			return (0);
@@ -36,7 +36,7 @@ int	check_so(char *line, int *count)
 
 int	check_ea(char *line, int *count)
 {
-	if (!strncmp(line, "EA", 2) || !strncmp(line, "E", 1))
+	if (!strncmp(line, "EA", 2))
 	{
 		if (!check_access(line))
 			return (0);
@@ -47,7 +47,7 @@ int	check_ea(char *line, int *count)
 
 int	check_we(char *line, int *count)
 {
-	if (!strncmp(line, "WE", 2) || !strncmp(line, "W", 1))
+	if (!strncmp(line, "WE", 2))
 	{
 		if (!check_access(line))
 			return (0);
@@ -77,7 +77,7 @@ int	check_texture(char **cub)
 	}
 	if (j != 10)
 	{
-		printf("problemes avec les textures\n");
+		printf("Error: problemes avec les textures\n");
 		return (free_tab(cub), 0);
 	}
 	return (1);

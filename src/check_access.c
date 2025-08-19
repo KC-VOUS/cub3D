@@ -6,7 +6,7 @@
 /*   By: fsingh <fsingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 19:18:43 by sdakhlao          #+#    #+#             */
-/*   Updated: 2025/07/01 17:58:23 by fsingh           ###   ########.fr       */
+/*   Updated: 2025/08/19 16:29:55 by fsingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	check_text_acc(char *str)
 	int	fd;
 	int	i;
 
-	i = 1;
+	i = 2;
 	while (str[i] == ' ')
 		i++;
 	fd = open(str + i, O_RDONLY);
@@ -55,46 +55,13 @@ int	check_text_acc(char *str)
 int	check_text_acc_bis(char *str)
 {
 	int	fd;
-	int	i;
 
-	i = 2;
-	while (str[i] == ' ')
-		i++;
-	fd = open(str + i, O_RDONLY);
+	fd = open(str + 2, O_RDONLY);
 	if (fd < 0)
 	{
 		perror("Erreur lors de l'ouverture de la texture");
 		free(str);
 		return (0);
-	}
-	close(fd);
-	return (1);
-}
-
-int	check_text_acc_ter(char *str)
-{
-	int	fd;
-
-	fd = open(str + 1, O_RDONLY);
-	if (fd < 0)
-	{
-		if (!strncmp(str, "NO", 2) || !strncmp(str, "SO", 2)
-			|| !strncmp(str, "EA", 2) || !strncmp(str, "WE", 2))
-		{
-			fd = open(str + 2, O_RDONLY);
-			if (fd < 0)
-			{
-				perror("Erreur lors de l'ouverture de la texture");
-				free(str);
-				return (0);
-			}
-		}
-		else
-		{
-			perror("Erreur lors de l'ouverture de la texture");
-			free(str);
-			return (0);
-		}
 	}
 	close(fd);
 	return (1);
@@ -107,19 +74,14 @@ int	check_access(char *txtr_path)
 	str = dup_txtr_path(txtr_path);
 	if (!str)
 		return (0);
-	if (str[1] == ' ')
+	else if (str[2] == ' ')
 	{
 		if (!check_text_acc(str))
 			return (0);
 	}
-	else if (str[2] == ' ')
-	{
-		if (!check_text_acc_bis(str))
-			return (0);
-	}
 	else
 	{
-		if (!check_text_acc_ter(str))
+		if (!check_text_acc_bis(str))
 			return (0);
 	}
 	free(str);

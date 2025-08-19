@@ -6,11 +6,40 @@
 /*   By: fsingh <fsingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 19:18:17 by sdakhlao          #+#    #+#             */
-/*   Updated: 2025/08/18 20:34:28 by fsingh           ###   ########.fr       */
+/*   Updated: 2025/08/19 16:39:17 by fsingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub.h"
+
+int	check_elements(char **cub)
+{
+	int	i;
+	int	count;
+
+	i = 0;
+	count = 0;
+	while (cub[i])
+	{
+		if (!strncmp(cub[i], "NO", 2))
+			count += 1;
+		else if (!strncmp(cub[i], "SO", 2))
+			count += 10;
+		else if (!strncmp(cub[i], "WE", 2))
+			count += 100;
+		else if (!strncmp(cub[i], "EA", 2))
+			count += 1000;
+		else if (!strncmp(cub[i], "F", 1))
+			count += 10000;
+		else if (!strncmp(cub[i], "C", 1))
+			count += 100000;
+		i++;
+	}
+	if (count == 111111)
+		return (1);
+	else
+		return (0);
+}
 
 int	check_order(char **cub)
 {
@@ -26,77 +55,13 @@ int	check_order(char **cub)
 		j++;
 	if (cub[i][j] != '1')
 	{
-		printf("la map doit etre en dernier\n");
+		printf("Error: la map doit etre en dernier\n");
 		return (free_tab(cub), 0);
 	}
-	return (1);
-}
-
-int	check_number(char *color)
-{
-	int	i;
-
-	i = 0;
-	while (color[i] == ' ')
-		i++;
-	while (color[i] >= '0' && color[i] <= '9')
-		i++;
-	while (color[i] && (color[i] == ' ' || color[i] == '\n'))
-		i++;
-	if (!color[i])
-		return (1);
-	else
-		return (0);
-}
-
-int	check_c(char **color)
-{
-	int	i;
-
-	i = 0;
-	while (color[i])
-		i++;
-	if (i > 3)
+	if (!check_elements(cub))
 	{
-		printf("Error: mauvais format rgb\n");
-		free_tab(color);
-		return (0);
-	}
-	i = 0;
-	while (color[i])
-	{
-		if (ft_atoi(color[i]) < 0 || ft_atoi(color[i]) > 255
-			|| !check_number(color[i]))
-		{
-			printf("Error: range rgb non respecte\n");
-			free_tab(color);
-			return (0);
-		}
-		i++;
-	}
-	free_tab(color);
-	return (1);
-}
-
-int	check_color(char **cub)
-{
-	int		i;
-	char	**tab;
-
-	i = 0;
-	tab = NULL;
-	while (cub[i])
-	{
-		if (!strncmp(cub[i], "F", 1) || !strncmp(cub[i], "C", 1))
-		{
-			tab = ft_split(cub[i] + 1, ',');
-			if (!check_c(tab))
-			{
-				free_tab(cub);
-				return (0);
-			}
-		}
-		i++;
+		printf("Error: mauvais nombre d'elements\n");
+		return (free_tab(cub), 0);
 	}
 	return (1);
 }
@@ -110,7 +75,13 @@ void	check_data(char **cub)
 	if (!check_color(cub))
 		exit(EXIT_FAILURE);
 	if (!check_map(cub))
-	 	exit(EXIT_FAILURE);
-	if (!check_map_content(cub))
+	{
+		free_tab(cub);
 		exit(EXIT_FAILURE);
+	}
+	if (!check_map_content(cub))
+	{
+		free_tab(cub);
+		exit(EXIT_FAILURE);
+	}
 }
