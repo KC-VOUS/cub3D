@@ -6,7 +6,7 @@
 /*   By: fsingh <fsingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 19:18:17 by sdakhlao          #+#    #+#             */
-/*   Updated: 2025/08/16 13:13:19 by fsingh           ###   ########.fr       */
+/*   Updated: 2025/08/18 20:34:28 by fsingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,45 +32,69 @@ int	check_order(char **cub)
 	return (1);
 }
 
-int	check_color(char **cub)
+int	check_number(char *color)
 {
 	int	i;
-	int	j;
-	int	k = 0;
-	int	l = 0;
-	char	*str = NULL;
 
 	i = 0;
-	j = 1;
+	while (color[i] == ' ')
+		i++;
+	while (color[i] >= '0' && color[i] <= '9')
+		i++;
+	while (color[i] && (color[i] == ' ' || color[i] == '\n'))
+		i++;
+	if (!color[i])
+		return (1);
+	else
+		return (0);
+}
+
+int	check_c(char **color)
+{
+	int	i;
+
+	i = 0;
+	while (color[i])
+		i++;
+	if (i > 3)
+	{
+		printf("Error: mauvais format rgb\n");
+		free_tab(color);
+		return (0);
+	}
+	i = 0;
+	while (color[i])
+	{
+		if (ft_atoi(color[i]) < 0 || ft_atoi(color[i]) > 255
+			|| !check_number(color[i]))
+		{
+			printf("Error: range rgb non respecte\n");
+			free_tab(color);
+			return (0);
+		}
+		i++;
+	}
+	free_tab(color);
+	return (1);
+}
+
+int	check_color(char **cub)
+{
+	int		i;
+	char	**tab;
+
+	i = 0;
+	tab = NULL;
 	while (cub[i])
 	{
 		if (!strncmp(cub[i], "F", 1) || !strncmp(cub[i], "C", 1))
 		{
-			if ((cub[i][1] < '0' || cub[i][1] > '9') && cub[i][1] != ' ')
-				return (free_tab(cub), 0);
-			while (cub[i][j] == ' ')
-				j++;
-			if (cub[i][j] < '0' || cub[i][j] > '9')
-				return (free_tab(cub), 0);
-			k = j;
-			while (cub[i][k] >= '0' && cub[i][k] <= '9')
-				k++;
-			if (k - j > 3)
-				return (free_tab(cub), 0);
-			str = malloc(sizeof(char) * ((k - j) + 1));
-			while (j < k)
+			tab = ft_split(cub[i] + 1, ',');
+			if (!check_c(tab))
 			{
-				str[l] = cub[i][j];
-				j++;
-				l++;
+				free_tab(cub);
+				return (0);
 			}
-			str[l] = '\0';
-			if (atoi(str) < 0 || atoi(str) > 255)
-				return (free_tab(cub), 0);
-			while (cub[i][j] == ' ')
-				j++;
-			if (cub[i][j] != ',')
-				return (free_tab(cub), 0);
 		}
 		i++;
 	}
@@ -83,8 +107,8 @@ void	check_data(char **cub)
 		exit(EXIT_FAILURE);
 	if (!check_texture(cub))
 		exit(EXIT_FAILURE);
-	//if (!check_color(cub))
-	//	exit(EXIT_FAILURE);
+	if (!check_color(cub))
+		exit(EXIT_FAILURE);
 	if (!check_map(cub))
 	 	exit(EXIT_FAILURE);
 	if (!check_map_content(cub))
