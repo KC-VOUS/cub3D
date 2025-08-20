@@ -6,7 +6,7 @@
 /*   By: fsingh <fsingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 20:13:51 by sdakhlao          #+#    #+#             */
-/*   Updated: 2025/08/19 16:36:26 by fsingh           ###   ########.fr       */
+/*   Updated: 2025/08/20 17:50:09 by fsingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,30 +34,24 @@ int	has_xpm(const char *path)
 	return (ft_strncmp(path + (len - 4), ".xpm", 4) == 0);
 }
 
-void	*check_txt_path(char *path, void *mlx)
+int load_texture(void *mlx, char *path, t_tex *tex)
 {
-	int		w;
-	int		h;
-	void	*img;
-
-	w = 32;
-	h = 32;
-	if (!has_xpm(path))
-		return (NULL);
-	img = mlx_xpm_file_to_image(mlx, path, &w, &h);
-	if (!img)
-		return (NULL);
-	return (img);
+	tex->img = mlx_xpm_file_to_image(mlx, path, &tex->w, &tex->h);
+	if (!tex->img)
+		return (0);
+	tex->addr = mlx_get_data_addr(tex->img, &tex->bpp, &tex->line_len, &tex->endian);
+	return (1);
 }
 
-int	check_all_textures(void *mlx, t_mlx *data)
+int check_all_textures(void *mlx, t_mlx *data)
 {
-	data->image.north = check_txt_path(data->image.north_path, mlx);
-	data->image.south = check_txt_path(data->image.south_path, mlx);
-	data->image.east = check_txt_path(data->image.east_path, mlx);
-	data->image.west = check_txt_path(data->image.west_path, mlx);
-	if (!(data->image.north) || !(data->image.south) || !(data->image.east)
-		|| !(data->image.west))
+	if (!load_texture(mlx, data->image.north_path, &data->image.north))
+		return (0);
+	if (!load_texture(mlx, data->image.south_path, &data->image.south))
+		return (0);
+    if (!load_texture(mlx, data->image.east_path, &data->image.east))
+		return (0);
+	if (!load_texture(mlx, data->image.west_path, &data->image.west))
 		return (0);
 	return (1);
 }

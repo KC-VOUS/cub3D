@@ -6,7 +6,7 @@
 /*   By: fsingh <fsingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 20:47:16 by sdakhlao          #+#    #+#             */
-/*   Updated: 2025/08/19 16:32:51 by fsingh           ###   ########.fr       */
+/*   Updated: 2025/08/20 17:55:11 by fsingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,14 @@ void	free_image_paths(t_image *image)
 
 void	free_textures(t_mlx *data)
 {
-	if (data->image.north)
-		mlx_destroy_image(data->mlx, data->image.north);
-	if (data->image.south)
-		mlx_destroy_image(data->mlx, data->image.south);
-	if (data->image.east)
-		mlx_destroy_image(data->mlx, data->image.east);
-	if (data->image.west)
-		mlx_destroy_image(data->mlx, data->image.west);
+	if (data->image.north.img)
+		mlx_destroy_image(data->mlx, data->image.north.img);
+	if (data->image.south.img)
+		mlx_destroy_image(data->mlx, data->image.south.img);
+	if (data->image.east.img)
+		mlx_destroy_image(data->mlx, data->image.east.img);
+	if (data->image.west.img)
+		mlx_destroy_image(data->mlx, data->image.west.img);
 }
 
 void	free_it(t_mlx *data)

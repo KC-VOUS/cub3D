@@ -6,7 +6,7 @@
 /*   By: fsingh <fsingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 20:13:43 by sdakhlao          #+#    #+#             */
-/*   Updated: 2025/08/19 16:41:39 by fsingh           ###   ########.fr       */
+/*   Updated: 2025/08/20 17:49:48 by fsingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,17 +70,28 @@ typedef struct s_player
 	int		r_right;
 }	t_player;
 
+typedef struct s_tex
+{
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
+	int		w;
+	int		h;
+}   t_tex;
+
 typedef struct s_image
 {
-	char			*north_path;
-	char			*south_path;
-	char			*east_path;
-	char			*west_path;
-	void			*north;
-	void			*south;
-	void			*east;
-	void			*west;
-} t_image;
+	char    *north_path;
+	char    *south_path;
+	char    *east_path;
+	char    *west_path;
+	t_tex   north;
+	t_tex   south;
+	t_tex   east;
+	t_tex   west;
+}   t_image;
 
 typedef struct s_mlx
 {

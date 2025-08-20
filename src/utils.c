@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdakhlao <sdakhlao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fsingh <fsingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 18:25:23 by sdakhlao          #+#    #+#             */
-/*   Updated: 2025/08/04 00:45:45 by sdakhlao         ###   ########.fr       */
+/*   Updated: 2025/08/20 19:51:23 by fsingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	init_struct(t_details *details)
 	details->map.height = 0;
 	details->map.screen_h = 480;
 	details->map.screen_w = 640;
-	details->map.texture_h = 64;
-	details->map.texture_w = 64;
+	details->map.texture_h = 32;
+	details->map.texture_w = 32;
 	details->player_pos_x = 0;
 	details->player_pos_y = 0;
 	details->dir_x = 0;

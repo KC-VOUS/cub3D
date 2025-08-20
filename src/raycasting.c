@@ -29,16 +29,39 @@ void	f_c(t_mlx *data)
 	}
 }
 
-void	vertical_line(t_mlx *data, int x, int drawStart, int drawEnd, int color)
+void    vertical_texture_line(t_mlx *data, int screen_x, int drawStart, int drawEnd,
+                              t_tex *tex, int lineHeight, int texX)
 {
-	if (x > data->map.screen_w || x < 0)
-		return ;
-	while (drawStart <= drawEnd)
-	{
-		put_pxl(data, x, drawStart, color);
-		drawStart++;
-	}
+    double  step;
+    double  texPos;
+    int     y;
+
+    step = (double)tex->h / (double)lineHeight;
+    texPos = (drawStart - data->map.screen_h / 2.0 + lineHeight / 2.0) * step;
+
+    if (drawStart < 0)
+        drawStart = 0;
+    if (drawEnd >= data->map.screen_h)
+        drawEnd = data->map.screen_h - 1;
+
+    y = drawStart;
+    while (y <= drawEnd)
+    {
+        int texY = (int)texPos;
+        if (texY < 0)
+            texY = 0;
+        if (texY >= tex->h)
+            texY = tex->h - 1;
+        texPos += step;
+
+        char *p = tex->addr + texY * tex->line_len + texX * (tex->bpp / 8);
+        int color = *(int *)p;
+
+        put_pxl(data, screen_x, y, color);
+        y++;
+    }
 }
+
 
 void get_rays(t_mlx *data, int x, int w)
 {
@@ -125,23 +148,35 @@ void get_rays(t_mlx *data, int x, int w)
 	if (drawEnd >= h)
 		drawEnd = h - 1;
 
-	int color = 0;
+	t_tex *texture;
+if (side == 0) // vertical wall
+{
+    if (rayDirX > 0)
+        texture = &data->image.south;
+    else
+        texture = &data->image.north;
+}
+else // horizontal wall
+{
+    if (rayDirY > 0)
+        texture = &data->image.east;
+    else
+        texture = &data->image.west;
+}
+    double wallX;
+    if (side == 0)
+        wallX = data->player.pos_y + perpWallDist * rayDirY;
+    else
+        wallX = data->player.pos_x + perpWallDist * rayDirX;
+    wallX -= floor(wallX);
 
-	if (data->map.map[mapX][mapY] == '1')
-		color = rgb(255, 0, 0);
-	else if (data->map.map[mapX][mapY] == 2)
-		color = rgb(0, 255, 0);
-	else if (data->map.map[mapX][mapY] == 3)
-		color = rgb(0, 0, 255);
-	else if (data->map.map[mapX][mapY] == 4)
-		color = rgb(255, 255, 255);
-	else
-		color = rgb(255, 255, 0);
-	if (side == 1)
-	{
-		color -= 15;
-	}
-	vertical_line(data, x, drawStart, drawEnd, color);
+    // coordonnée X texture
+    int texX = (int)(wallX * (double)texture->w);
+    if ((side == 0 && rayDirX > 0) || (side == 1 && rayDirY < 0))
+        texX = texture->w - texX - 1;
+
+    // dessiner ligne verticale avec texture
+    vertical_texture_line(data, x, drawStart, drawEnd, texture, lineHeight, texX);
 }
 
 void	handle_movement(t_mlx *data)

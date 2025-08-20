@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sdakhlao <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fsingh <fsingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 21:09:11 by sdakhlao          #+#    #+#             */
-/*   Updated: 2025/08/18 21:09:13 by sdakhlao         ###   ########.fr       */
+/*   Updated: 2025/08/20 19:50:24 by fsingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ int	init_map(t_mlx *data, t_details *details)
 	data->map.ceiling_r = details->ceiling_r;
 	data->map.ceiling_g = details->ceiling_g;
 	data->map.ceiling_b = details->ceiling_b;
-	data->map.texture_w = 64;
-	data->map.texture_h = 64;
+	data->map.texture_w = 32;
+	data->map.texture_h = 32;
 	data->map.screen_w = 640;
 	data->map.screen_h = 480;
 	data->map.width = details->map.width;
