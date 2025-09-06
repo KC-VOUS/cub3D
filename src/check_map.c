@@ -6,7 +6,7 @@
 /*   By: fsingh <fsingh@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 18:26:12 by sdakhlao          #+#    #+#             */
-/*   Updated: 2025/08/19 16:48:04 by fsingh           ###   ########.fr       */
+/*   Updated: 2025/09/06 17:08:20 by fsingh           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	**dup_map(char **cub)
 
 int	ft_flood_fill(char **map, int y, int x)
 {
-	if (y < 0 || x < 0 || !map[y] || (map[y] && !map[y][x]) || x >= ((int)ft_strlen(map[y]) - 1) || map[y][x] == ' ')
+	if (y < 0 || x < 0 || !map[y] || x >= (int)ft_strlen(map[y]) || map[y][x] == ' ')
 		return (1);
 	else if (map[y][x] == '1')
 		return (0);
